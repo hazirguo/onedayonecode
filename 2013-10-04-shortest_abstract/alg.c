@@ -11,6 +11,7 @@ int shortestAbstract(char *str_long, char *str_set, int *abstract_begin, int *ab
     int begin=0, end=0;    //滑窗的起点和终点
     
     int hash_set1[26], hash_set2[26];
+    unsigned int hashmap = 0;
     int i, j;
 
     memset(hash_set1, 0, sizeof(hash_set1));
@@ -19,6 +20,7 @@ int shortestAbstract(char *str_long, char *str_set, int *abstract_begin, int *ab
     for (i=0; i<len_set; ++i)
     {
         hash_set2[str_set[i]-'a'] = 1;
+        hashmap |= (1<<(str_set[i]-'a'));
     }
 
     while(true)
@@ -29,6 +31,14 @@ int shortestAbstract(char *str_long, char *str_set, int *abstract_begin, int *ab
             if (hash_set2[str_long[end]-'a'] == 1)     //是字符集中的字符
             {
                 hash_set1[str_long[end]-'a']++;    //出现次数+1
+                hashmap &= ~(1<<(str_long[end]-'a'));     //
+
+                if (hashmap == 0)
+                {
+                    end++;
+                    break;
+                }
+/*
                 for (i=0; i<26; i++)
                 {
                     if (hash_set2[i]!=1)   //不是字符集中的字符
@@ -42,6 +52,7 @@ int shortestAbstract(char *str_long, char *str_set, int *abstract_begin, int *ab
                     end++;
                     break;
                 }
+                */
             }
             end++;
         }
@@ -62,6 +73,7 @@ int shortestAbstract(char *str_long, char *str_set, int *abstract_begin, int *ab
                 hash_set1[str_long[begin]-'a']--;    //-1
                 if(hash_set1[str_long[begin]-'a'] == 0)   //减为0
                 {
+                    hashmap |= (1<<(str_long[begin]-'a'));
                     begin++;
                     break;
                 }
@@ -79,12 +91,12 @@ int main()
 {
     int start, end;
     char *str = "bbbsssddagdfasgdfa";
-    char *set = "adsbg";
+    char *set = "afdsbig";
     int i;
 
     if (shortestAbstract(str, set, &start, &end) != strlen(str)+1)
     {
-        printf("shortest abstract substring is   ");
+        printf("%s shortest abstract <%s> substring is   ", str, set);
         for (i=start; i<=end; i++)
             printf("%c", str[i]);
         printf("\n");
