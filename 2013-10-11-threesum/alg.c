@@ -26,7 +26,7 @@ void find_three_sum(int array[], int len)
 		}
 	}
 }
-
+ 
 int main(void) {
 		
 	int array[7] = {-5, -1, 0, 2, 3, 5, 9};    //sorted!
