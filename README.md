@@ -23,3 +23,7 @@
 ## 参考资料 ##
 
 * http://blog.42floors.com/100-day-goals/#.UlkEV3hs_CK
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/hazirguo/onedayonecode/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
